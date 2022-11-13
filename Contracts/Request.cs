@@ -22,7 +22,10 @@ namespace MountHebronAppApi.Contracts
         public string Category { get; set; }
         public string Message { get; set; }
         public string BlogType { get; set; }
-        public BlogEntry BloggerInfo { get; set; }
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string Position { get; set; }
+        public string Company { get; set; }
         public IFormFile File { get; set; }
     }
 }

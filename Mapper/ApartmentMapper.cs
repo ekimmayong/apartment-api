@@ -87,11 +87,11 @@ namespace MountHebronAppApi.Mapper
 
             var bloggerInfo = new BlogEntry()
             {
-                Email = request.BloggerInfo.Email,
-                Company = request.BloggerInfo.Company,
+                Email = request.Email,
+                Company = request.Company,
                 ImageUri = imageUrl,
-                Name = request.BloggerInfo.Name,
-                Position = request.BloggerInfo.Position,
+                Name = request.Name,
+                Position = request.Position,
                 ImageName = request.File.FileName
             };
 
