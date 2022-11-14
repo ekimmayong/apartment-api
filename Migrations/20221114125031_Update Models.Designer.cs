@@ -12,8 +12,8 @@ using MountHebronAppApi.Context;
 namespace MountHebronAppApi.Migrations
 {
     [DbContext(typeof(ApartmentContext))]
-    [Migration("20221114072800_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20221114125031_Update Models")]
+    partial class UpdateModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,7 +132,7 @@ namespace MountHebronAppApi.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("MountHebronAppApi.Models.MemberRequest", b =>
+            modelBuilder.Entity("MountHebronAppApi.Models.JoinMember", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -182,10 +182,10 @@ namespace MountHebronAppApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Requests");
+                    b.ToTable("RequestsJoin");
                 });
 
-            modelBuilder.Entity("MountHebronAppApi.Models.User", b =>
+            modelBuilder.Entity("MountHebronAppApi.Models.Member", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -261,7 +261,7 @@ namespace MountHebronAppApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MountHebronAppApi.Models.User", "User")
+                    b.HasOne("MountHebronAppApi.Models.Member", "User")
                         .WithMany("Blogs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -279,7 +279,7 @@ namespace MountHebronAppApi.Migrations
                     b.Navigation("Blogs");
                 });
 
-            modelBuilder.Entity("MountHebronAppApi.Models.User", b =>
+            modelBuilder.Entity("MountHebronAppApi.Models.Member", b =>
                 {
                     b.Navigation("Blogs");
                 });

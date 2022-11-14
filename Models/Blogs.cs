@@ -24,6 +24,6 @@ namespace MountHebronAppApi.Models
 
         [ForeignKey("Id")]
         public int UserId { get; set; }
-        public User User { get; set; }
+        public Member User { get; set; }
     }
 }

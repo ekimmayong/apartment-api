@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using MountHebronAppApi.Contracts;
 using MountHebronAppApi.Services;
@@ -12,6 +13,7 @@ namespace MountHebronAppApi.Controllers
         private const string BlogStorageName = "blog-images";
         private readonly ILogger<BlogController> _logger;
         private readonly IStorageServices _service;
+
 
         public BlogController(ILogger<BlogController> logger, IStorageServices service)
         {
@@ -39,7 +41,7 @@ namespace MountHebronAppApi.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> NewBlog([FromForm]BlogRequest request)
+        public async Task<IActionResult> NewBlog([FromForm]BlogsRequest request)
         {
             if (request.File != null)
             {

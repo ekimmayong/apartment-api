@@ -4,18 +4,18 @@ using MountHebronAppApi.Models;
 
 namespace MountHebronAppApi.Context
 {
-    public class DataContext: DbContext
+    public class ApartmentContext: DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options): base(options)
+        public ApartmentContext(DbContextOptions<ApartmentContext> options): base(options)
         {
 
         }
 
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<Blogs> Blogs { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Member> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<MemberRequest> Requests { get; set; }
+        public DbSet<JoinMember> RequestsJoin { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

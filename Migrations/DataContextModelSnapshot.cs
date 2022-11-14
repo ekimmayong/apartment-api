@@ -10,7 +10,7 @@ using MountHebronAppApi.Context;
 
 namespace MountHebronAppApi.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(ApartmentContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -130,7 +130,7 @@ namespace MountHebronAppApi.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("MountHebronAppApi.Models.MemberRequest", b =>
+            modelBuilder.Entity("MountHebronAppApi.Models.JoinMember", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,10 +180,10 @@ namespace MountHebronAppApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Requests");
+                    b.ToTable("RequestsJoin");
                 });
 
-            modelBuilder.Entity("MountHebronAppApi.Models.User", b =>
+            modelBuilder.Entity("MountHebronAppApi.Models.Member", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -259,7 +259,7 @@ namespace MountHebronAppApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MountHebronAppApi.Models.User", "User")
+                    b.HasOne("MountHebronAppApi.Models.Member", "User")
                         .WithMany("Blogs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -277,7 +277,7 @@ namespace MountHebronAppApi.Migrations
                     b.Navigation("Blogs");
                 });
 
-            modelBuilder.Entity("MountHebronAppApi.Models.User", b =>
+            modelBuilder.Entity("MountHebronAppApi.Models.Member", b =>
                 {
                     b.Navigation("Blogs");
                 });

@@ -1,21 +1,21 @@
 ﻿using MountHebronAppApi.Contracts;
 using MountHebronAppApi.Models;
+using MountHebronAppApi.Utilities;
 using Newtonsoft.Json;
 
 namespace MountHebronAppApi.Mapper
 {
     public class ApartmentMapper : IApartmentMapper
     {
-        public IEnumerable<ApartmentResponse> Apartments(IEnumerable<ApartmentModel> apartments)
+        public IEnumerable<ApartmentsResponse> Apartments(IEnumerable<ApartmentModel> apartments)
         {
             return apartments.Select(Apartment);
         }
 
-
         //Return Apartment Data from Azure Storage Data
-        public ApartmentResponse Apartment(ApartmentModel apartments)
+        public ApartmentsResponse Apartment(ApartmentModel apartments)
         {
-            return new ApartmentResponse()
+            return new ApartmentsResponse()
             {
                 PartitionKey = apartments.PartitionKey,
                 RowKey = apartments.RowKey,
@@ -32,7 +32,7 @@ namespace MountHebronAppApi.Mapper
         }
 
         //Add new data to Azure Storage Table
-        public ApartmentModel NewApartment(ApartmentRequest request, string imageUri)
+        public ApartmentModel NewApartment(ApartmentsRequest request, string imageUri)
         {
             var id = Guid.NewGuid().ToString();
             var address = new AddressModel()
@@ -63,15 +63,15 @@ namespace MountHebronAppApi.Mapper
         }
 
         //Blog Mappers
-        public IEnumerable<BlogResponse> GetBlogs(IEnumerable<BlogModel> blog)
+        public IEnumerable<BlogsResponse> GetBlogs(IEnumerable<BlogModel> blog)
         {
             return blog.Select(GetBlog);
         }
 
-        public BlogResponse GetBlog(BlogModel blog)
+        public BlogsResponse GetBlog(BlogModel blog)
         {
 
-            return new BlogResponse()
+            return new BlogsResponse()
             {
                 RowKey = blog.RowKey,
                 PartitionKey = blog.PartitionKey,
@@ -81,7 +81,7 @@ namespace MountHebronAppApi.Mapper
             };
         }
 
-        public BlogModel NewBlog(BlogRequest request, string imageUrl)
+        public BlogModel NewBlog(BlogsRequest request, string imageUrl)
         {
             var id = Guid.NewGuid().ToString();
 
@@ -103,6 +103,83 @@ namespace MountHebronAppApi.Mapper
                 BlogType = request.BlogType,
                 BloggerInfo = JsonConvert.SerializeObject(bloggerInfo)
             };
+        }
+
+
+
+        //Sql
+
+        public Apartment NewApartment(ApartmentRequest request, string imageUri)
+        {
+            return new Apartment()
+            {
+                Title = request.Title,
+                Description = request.Description,
+                Address = request.Address,
+                Price = request.Price,
+                Bedrooms = request.Bedrooms,
+                Status = request.Status,
+                Featured = request.Featured,
+                ImageName = request.File.FileName,
+                ImageUri = imageUri,
+                CategoryId = request.CategoryId
+            };
+        }
+
+        public IEnumerable<ApartmentResponse> GetApartments(IEnumerable<Apartment> model, IEnumerable<Category> category)
+        {
+            var response = from a in model
+                           join c in category on a.CategoryId equals c.Id
+                           select GetApartment(a, c);
+
+            return response;
+        }
+
+        public ApartmentResponse GetApartment(Apartment model, Category category)
+        {
+           
+            return new ApartmentResponse()
+            {
+                Uid = GuidConversion.GuidFromString(Encrytion.EncryptId(model.Id.ToString())),
+                CategoryId = category.Id,
+                CategoryName = category.CategoryName,
+                Address = model.Address,
+                Bedrooms=model.Bedrooms,
+                Featured = model.Featured,
+                ImageName = model.ImageName,
+                ImageUri = model.ImageUri,
+                Price = model.Price,
+                Status = model.Status
+                
+            };
+        }
+
+        //Blogs
+        public Blogs NewBlogs(BlogRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<BlogResponse> GetBlogs(IEnumerable<Blogs> model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BlogResponse GetBlog(Blogs blog)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        //Members
+        public Member NewMemberRequest(MemberRequest model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Category NewCategory(CategoryRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

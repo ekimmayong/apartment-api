@@ -46,7 +46,7 @@ namespace MountHebronAppApi.Services
         //---------------------End of Storage Connection service
 
         //Azure Storage Table Section
-        public async Task<IEnumerable<ApartmentResponse>> GetEntityAsync(string category)
+        public async Task<IEnumerable<ApartmentsResponse>> GetEntityAsync(string category)
         {
             var tableClient = await GetTableClient(TableName);
 
@@ -57,7 +57,7 @@ namespace MountHebronAppApi.Services
             return response;
         }
 
-        public async Task<ApartmentResponse> GetEntityByIdAsync(string category, string id)
+        public async Task<ApartmentsResponse> GetEntityByIdAsync(string category, string id)
         {
             var tableClient = await GetTableClient(TableName);
 
@@ -69,7 +69,7 @@ namespace MountHebronAppApi.Services
         }
 
 
-        public async Task<ApartmentModel> UpsertEntityAsync(ApartmentRequest entity, string imageUri)
+        public async Task<ApartmentModel> UpsertEntityAsync(ApartmentsRequest entity, string imageUri)
         {
             var apartmentRequest = _map.NewApartment(entity, imageUri);
 
@@ -201,7 +201,7 @@ namespace MountHebronAppApi.Services
         }
 
         //Blog Services Entry
-        public async Task<IEnumerable<BlogResponse>> GetBlogs(string category)
+        public async Task<IEnumerable<BlogsResponse>> GetBlogs(string category)
         {
             var tableClient = await GetTableClient(BlogTableName);
 
@@ -212,7 +212,7 @@ namespace MountHebronAppApi.Services
             return response;
         }
 
-        public async Task<BlogResponse> GetBlogsById(string category, string id)
+        public async Task<BlogsResponse> GetBlogsById(string category, string id)
         {
             var tableClient = await GetTableClient(BlogTableName);
 
@@ -223,7 +223,7 @@ namespace MountHebronAppApi.Services
             return response;
         }
 
-        public async Task<BlogModel> InsetNewBlog(BlogRequest entity, string imageUri)
+        public async Task<BlogModel> InsetNewBlog(BlogsRequest entity, string imageUri)
         {
             var blogRequest = _map.NewBlog(entity, imageUri);
 

@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,7 +27,7 @@ builder.Services.AddCors(option =>
 });
 
 //Database Context services
-builder.Services.AddDbContext<DataContext>(options =>
+builder.Services.AddDbContext<ApartmentContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("HebronDbConnectionString"));
 });
@@ -35,7 +36,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 //Dependency injections
 builder.Services.AddSingleton<IStorageServices, StorageService>();
 builder.Services.AddSingleton<IApartmentMapper, ApartmentMapper>();
+builder.Services.AddSingleton<IApartmentMapper, ApartmentMapper>();
 
+//App Middleware
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,14 +51,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
 app.UseCors(x=> x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
 
 app.UseAuthorization();
-
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action}/{id?}");
-//});
 
 app.MapControllers();
 

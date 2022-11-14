@@ -2,7 +2,7 @@
 
 namespace MountHebronAppApi.Models
 {
-    public class MemberRequest
+    public class Member
     {
         [Key]
         public int Id { get; set; }
@@ -17,10 +17,10 @@ namespace MountHebronAppApi.Models
         public string Email { get; set; }
 
         [Required]
-        public string Citizenship { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required]
-        public string PhoneNumber { get; set; }
+        public string Citizenship { get; set; }
 
         [Required]
         public string Country { get; set; }
@@ -34,6 +34,12 @@ namespace MountHebronAppApi.Models
         [Required]
         public string Street { get; set; }
 
-        public string Comments { get; set; }
+        [Required]
+        public string ImageName { get; set; }
+
+        [Url]
+        public string ImageUri { get; set; }
+
+        public List<Blogs> Blogs { get; set; }
     }
 }

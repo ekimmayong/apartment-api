@@ -7,9 +7,9 @@ namespace MountHebronAppApi.Services
     public interface IStorageServices
     {
         //Azure Data Tables for Apartment
-        Task<IEnumerable<ApartmentResponse>> GetEntityAsync(string category);
-        Task<ApartmentResponse> GetEntityByIdAsync(string category, string id);
-        Task<ApartmentModel> UpsertEntityAsync(ApartmentRequest entity, string imageUri);
+        Task<IEnumerable<ApartmentsResponse>> GetEntityAsync(string category);
+        Task<ApartmentsResponse> GetEntityByIdAsync(string category, string id);
+        Task<ApartmentModel> UpsertEntityAsync(ApartmentsRequest entity, string imageUri);
         Task DeleteEntityAsync(string category, string id, string blobStorage);
 
         //Azure Storage Blobs for Apartment
@@ -19,9 +19,9 @@ namespace MountHebronAppApi.Services
         Task<bool> DeleteDocument(string fileName, string blobStorage);
 
         //Azure Data Table for Blogs
-        Task<IEnumerable<BlogResponse>> GetBlogs(string category);
-        Task<BlogResponse> GetBlogsById(string category, string id);
-        Task<BlogModel> InsetNewBlog(BlogRequest entity, string imageUri);
+        Task<IEnumerable<BlogsResponse>> GetBlogs(string category);
+        Task<BlogsResponse> GetBlogsById(string category, string id);
+        Task<BlogModel> InsetNewBlog(BlogsRequest entity, string imageUri);
         Task DeleteBlog(string category, string id, string blobStorage);
     }
 }

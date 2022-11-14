@@ -40,7 +40,7 @@ namespace MountHebronAppApi.Controllers
 
         [HttpPost]
         [Route("item")]
-        public async Task<IActionResult> NewApartment([FromForm] ApartmentRequest entity)
+        public async Task<IActionResult> NewApartment([FromForm] ApartmentsRequest entity)
         {
             if (entity.File != null)
             {

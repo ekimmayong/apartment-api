@@ -6,18 +6,42 @@ namespace MountHebronAppApi.Mapper
     public interface IApartmentMapper
     {
         // Apartmetn Mappers
-        ApartmentModel NewApartment(ApartmentRequest request, string imageUri);
+        ApartmentModel NewApartment(ApartmentsRequest request, string imageUri);
 
-        IEnumerable<ApartmentResponse> Apartments(IEnumerable<ApartmentModel> apartments);
+        IEnumerable<ApartmentsResponse> Apartments(IEnumerable<ApartmentModel> apartments);
 
-        ApartmentResponse Apartment(ApartmentModel apartments);
+        ApartmentsResponse Apartment(ApartmentModel apartments);
 
         //Blog Mappers
-        IEnumerable<BlogResponse> GetBlogs(IEnumerable<BlogModel> blog);
+        IEnumerable<BlogsResponse> GetBlogs(IEnumerable<BlogModel> blog);
 
-        BlogResponse GetBlog(BlogModel blog);
+        BlogsResponse GetBlog(BlogModel blog);
 
-        BlogModel NewBlog(BlogRequest request, string imageUrl);
+        BlogModel NewBlog(BlogsRequest request, string imageUrl);
 
+
+        ///Apartment
+        Apartment NewApartment(ApartmentRequest request, string imageUri);
+
+        IEnumerable<ApartmentResponse> GetApartments(IEnumerable<Apartment> model, IEnumerable<Category> category);
+
+        ApartmentResponse GetApartment(Apartment model, Category category);
+
+
+        //Blogs
+
+        Blogs NewBlogs(BlogRequest request);
+
+        IEnumerable<BlogResponse> GetBlogs(IEnumerable<Blogs> model);
+
+        BlogResponse GetBlog(Blogs blog);
+
+
+        //Members
+        Member NewMemberRequest(MemberRequest model);
+
+
+        //Category
+        Category NewCategory(CategoryRequest request);
     }
 }
