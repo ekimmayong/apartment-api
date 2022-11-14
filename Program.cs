@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Azure;
 using MountHebronAppApi.Mapper;
 using MountHebronAppApi.Services;
+using Microsoft.EntityFrameworkCore;
+using MountHebronAppApi.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +23,16 @@ builder.Services.AddCors(option =>
             policy.AllowAnyMethod();
             policy.AllowCredentials();
         });
-}); 
+});
 
+//Database Context services
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HebronDbConnectionString"));
+});
+
+
+//Dependency injections
 builder.Services.AddSingleton<IStorageServices, StorageService>();
 builder.Services.AddSingleton<IApartmentMapper, ApartmentMapper>();
 
