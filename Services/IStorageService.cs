@@ -1,6 +1,5 @@
 using MountHebronAppApi.Contracts;
 using MountHebronAppApi.Models;
-using System.IO;
 
 namespace MountHebronAppApi.Services
 {

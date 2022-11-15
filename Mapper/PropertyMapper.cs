@@ -1,12 +1,16 @@
-﻿using MountHebronAppApi.Contracts;
+﻿using Azure.Storage.Blobs;
+using Microsoft.Extensions.Configuration;
+using MountHebronAppApi.Contracts;
 using MountHebronAppApi.Models;
 using MountHebronAppApi.Utilities;
 using Newtonsoft.Json;
 
 namespace MountHebronAppApi.Mapper
 {
-    public class ApartmentMapper : IApartmentMapper
+    public class PropertyMapper : IPropertyMapper
     {
+        
+
         public IEnumerable<ApartmentsResponse> Apartments(IEnumerable<ApartmentModel> apartments)
         {
             return apartments.Select(Apartment);
@@ -137,7 +141,6 @@ namespace MountHebronAppApi.Mapper
 
         public ApartmentResponse GetApartment(Apartment model, Category category)
         {
-           
             return new ApartmentResponse()
             {
                 Uid = GuidConversion.GuidFromString(Encrytion.EncryptId(model.Id.ToString())),
@@ -150,7 +153,6 @@ namespace MountHebronAppApi.Mapper
                 ImageUri = model.ImageUri,
                 Price = model.Price,
                 Status = model.Status
-                
             };
         }
 

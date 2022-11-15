@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MountHebronAppApi.Context;
 using MountHebronAppApi.Contracts;
+using MountHebronAppApi.Models;
 using MountHebronAppApi.Services;
 
 namespace MountHebronAppApi.Controllers
@@ -10,17 +11,27 @@ namespace MountHebronAppApi.Controllers
     [ApiController]
     public class MembersController : ControllerBase
     {
-        private readonly IApartmentService _service;
+        private readonly IPropertyService _service;
         private readonly ILogger<MembersController> _log;
 
-        public MembersController(IApartmentService service, ILogger<MembersController> log)
+        public MembersController(IPropertyService service, ILogger<MembersController> log)
         {
             _service = service;
             _log = log;
         }
 
+        [HttpPost]
+        [Route("save-data")]
+        public async Task<IActionResult> GetData(Apartment model)
+        {
+            
+
+            return Ok();
+        }
+
+
         [Route("join-team")]
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> JoinMember([FromBody] JoinRequest request)
         {
             try

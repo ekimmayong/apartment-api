@@ -3,10 +3,10 @@ using MountHebronAppApi.Models;
 
 namespace MountHebronAppApi.Services
 {
-    public interface IApartmentService
+    public interface IPropertyService
     {
         //Apartments
-        Task<Apartment> AddNewApartment(ApartmentRequest request);
+        Task AddNewApartment(ApartmentRequest request);
 
         Task<IEnumerable<ApartmentResponse>> GetApartments();
 

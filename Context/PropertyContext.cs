@@ -1,15 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MountHebronAppApi.Models;
 
 namespace MountHebronAppApi.Context
 {
-    public class ApartmentContext: DbContext
+    public class PropertyContext: DbContext
     {
-        public ApartmentContext(DbContextOptions<ApartmentContext> options): base(options)
-        {
-
-        }
+        public PropertyContext(DbContextOptions<PropertyContext> options): base(options) { }
 
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<Blogs> Blogs { get; set; }

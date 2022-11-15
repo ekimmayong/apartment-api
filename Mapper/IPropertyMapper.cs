@@ -3,7 +3,7 @@ using MountHebronAppApi.Contracts;
 
 namespace MountHebronAppApi.Mapper
 {
-    public interface IApartmentMapper
+    public interface IPropertyMapper
     {
         // Apartmetn Mappers
         ApartmentModel NewApartment(ApartmentsRequest request, string imageUri);

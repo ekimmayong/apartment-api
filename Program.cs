@@ -27,7 +27,7 @@ builder.Services.AddCors(option =>
 });
 
 //Database Context services
-builder.Services.AddDbContext<ApartmentContext>(options =>
+builder.Services.AddDbContext<PropertyContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("HebronDbConnectionString"));
 });
@@ -35,8 +35,8 @@ builder.Services.AddDbContext<ApartmentContext>(options =>
 
 //Dependency injections
 builder.Services.AddSingleton<IStorageServices, StorageService>();
-builder.Services.AddSingleton<IApartmentMapper, ApartmentMapper>();
-builder.Services.AddSingleton<IApartmentMapper, ApartmentMapper>();
+builder.Services.AddSingleton<IPropertyMapper, PropertyMapper>();
+builder.Services.AddScoped<IPropertyService, PropertyService>();
 
 //App Middleware
 var app = builder.Build();

@@ -11,7 +11,7 @@ using MountHebronAppApi.Context;
 
 namespace MountHebronAppApi.Migrations
 {
-    [DbContext(typeof(ApartmentContext))]
+    [DbContext(typeof(PropertyContext))]
     [Migration("20221114072800_Initial Migration")]
     partial class InitialMigration
     {

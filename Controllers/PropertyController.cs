@@ -1,22 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
 using MountHebronAppApi.Services;
 using MountHebronAppApi.Contracts;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace MountHebronAppApi.Controllers
 {
     [Route("api/apartment")]
     [ApiController]
-    public class ApartmentController : ControllerBase
+    public class PropertyController : ControllerBase
     {
         private const string ApartmentStorageName = "apartment-images";
         private const string BlogStorageName = "blog-images";
-
         private readonly IStorageServices _service;
-        private readonly ILogger<ApartmentController> _logger;
-        public ApartmentController(IStorageServices service, ILogger<ApartmentController> logger)
+        private readonly IPropertyService _apartmentService;
+        private readonly ILogger<PropertyController> _logger;
+
+        public PropertyController(IStorageServices service, ILogger<PropertyController> logger, IPropertyService apartmentService)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _logger = logger;
+            _apartmentService = apartmentService;
         }
 
         //Azure Data tables Sections
@@ -24,9 +27,19 @@ namespace MountHebronAppApi.Controllers
         [Route("items/{category}")]
         public async Task<IActionResult> ApartmentLists(string category)
         {
-            var result = await _service.GetEntityAsync(category);
+            try
+            {
+                var result = await _service.GetEntityAsync(category);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex);
+
+            }
+            
         }
 
         [HttpGet]
@@ -67,6 +80,8 @@ namespace MountHebronAppApi.Controllers
 
             return Ok();
         }
+
+
         //Azure Storage blobs Section
         [HttpGet]
         [Route("documents")]
@@ -84,6 +99,25 @@ namespace MountHebronAppApi.Controllers
             var response = await _service.GetDocument(filename);
 
             return Ok(response);
+        }
+
+        //SQL
+
+        [HttpPost]
+        [Route("post")]
+        public async Task<IActionResult> AddNewApartment([FromForm] ApartmentRequest request)
+        {
+            try 
+            {
+                await _apartmentService.AddNewApartment(request);
+
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex);
+            }
         }
     }
 }

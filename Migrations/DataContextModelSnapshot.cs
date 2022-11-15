@@ -10,7 +10,7 @@ using MountHebronAppApi.Context;
 
 namespace MountHebronAppApi.Migrations
 {
-    [DbContext(typeof(ApartmentContext))]
+    [DbContext(typeof(PropertyContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

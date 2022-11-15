@@ -15,8 +15,9 @@ namespace MountHebronAppApi.Services
         private const string BlobStorageName = "apartment-images";
         private const string BlogStorageName = "blog-images";
         private readonly IConfiguration _configuration;
-        private readonly IApartmentMapper _map;
-        public StorageService(IConfiguration configuration, IApartmentMapper map)
+        private readonly IPropertyMapper _map;
+
+        public StorageService(IConfiguration configuration, IPropertyMapper map)
         {
             _configuration = configuration;
             _map = map;
@@ -76,6 +77,7 @@ namespace MountHebronAppApi.Services
             var tableClient = await GetTableClient(TableName);
 
             await tableClient.UpsertEntityAsync(apartmentRequest);
+
             return apartmentRequest;
         }
 
