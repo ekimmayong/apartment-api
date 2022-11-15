@@ -181,5 +181,23 @@ namespace MountHebronAppApi.Mapper
         {
             throw new NotImplementedException();
         }
+
+        //Create Request to Join membership
+        public JoinMember AddNewMemberRequest(JoinRequest request)
+        {
+            return new JoinMember()
+            {
+                FirstName = request.FirstName,
+                Lastname = request.LastName,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                Citizenship = request.Citizenship,
+                Comments = request.Comments,
+                Country = request.Country,
+                Province = request.Province,
+                TownCity = request.TownCity,
+                Street = request.Street
+            };
+        }
     }
 }

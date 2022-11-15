@@ -38,10 +38,14 @@ namespace MountHebronAppApi.Mapper
 
 
         //Members
+        //Add members from the request
         Member NewMemberRequest(MemberRequest model);
 
 
         //Category
         Category NewCategory(CategoryRequest request);
+
+        //Create Request to Join membership
+        JoinMember AddNewMemberRequest(JoinRequest request);
     }
 }

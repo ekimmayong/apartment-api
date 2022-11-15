@@ -10,7 +10,7 @@ namespace MountHebronAppApi.Services
 
         Task<IEnumerable<ApartmentResponse>> GetApartments();
 
-        Task<ApartmentResponse> GetApartment();
+        Task<ApartmentResponse> GetApartment(Guid uid);
 
         Task DeleteApartment(Guid uid);
 
@@ -35,9 +35,9 @@ namespace MountHebronAppApi.Services
 
         Task<IEnumerable<MemberResponse>> GetMembers();
 
-        Task<MemberResponse> GetMember();
+        Task<MemberResponse> GetMember(Guid uid);
 
-        //Join Request
+        //Create Request to Join membership
         Task<JoinRequest> AddNewJoin(JoinRequest model);
 
     }

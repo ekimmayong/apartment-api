@@ -28,10 +28,10 @@ namespace MountHebronAppApi.Services
             var apartment = await _context.Apartments.AsNoTracking().ToListAsync();
             var category = await _context.Categories.AsNoTracking().ToListAsync();
 
-            return _map.GetApartment(apartment, category)
+            return _map.GetApartments(apartment, category);
         }
 
-        public async Task<ApartmentResponse> GetApartment()
+        public async Task<ApartmentResponse> GetApartment(Guid uid)
         {
             throw new NotImplementedException();
         }
@@ -81,6 +81,7 @@ namespace MountHebronAppApi.Services
         }
 
         //JoinMembers
+        //Add Requested member
         public Task<MemberRequest> NewMembers(MemberRequest model)
         {
             throw new NotImplementedException();
@@ -91,16 +92,22 @@ namespace MountHebronAppApi.Services
             throw new NotImplementedException();
         }
 
-        public Task<MemberResponse> GetMember()
+        public Task<MemberResponse> GetMember(Guid uid)
         {
             throw new NotImplementedException();
         }
-        
+
         //
         //Join TEam
-        public Task<JoinRequest> AddNewJoin(JoinRequest model)
+        //Create Request to Join membership
+        public async Task<JoinRequest> AddNewJoin(JoinRequest model)
         {
-            throw new NotImplementedException();
+            var response = _map.AddNewMemberRequest(model);
+
+            await _context.AddAsync(response);
+            await _context.SaveChangesAsync();
+
+            return model;
         }
     }
 }
