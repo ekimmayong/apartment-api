@@ -45,6 +45,12 @@ namespace MountHebronAppApi.Mapper
         //Category
         Category NewCategory(CategoryRequest request);
 
+        Category UpdateCategory(int id, CategoryRequest request);
+
+        IEnumerable<CategoryResponse> GetAllCategories(IEnumerable<Category> model);
+
+        CategoryResponse GetCategory(Category category);
+
         //Create Request to Join membership
         JoinMember AddNewMemberRequest(JoinRequest request);
     }

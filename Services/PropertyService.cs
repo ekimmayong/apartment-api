@@ -74,10 +74,11 @@ namespace MountHebronAppApi.Services
 
         public async Task DeleteApartment(Guid uid)
         {
-            int id = GuidConversion.Guid2Int(uid);
             var response = await GetApartments();
 
             var dataId = response.Where(a => a.Uid == uid).FirstOrDefault();
+
+            await _storageServices.DeleteDocument(dataId.ImageName, BlobStorageName);
         }
 
         //Blogs
@@ -102,21 +103,43 @@ namespace MountHebronAppApi.Services
         }
 
         //Category
-        public Task<CategoryRequest> AddNewCategory(CategoryRequest request)
+        public async Task AddNewCategory(CategoryRequest request)
         {
-            throw new NotImplementedException();
+            var response = _map.NewCategory(request);
+
+            await _context.AddAsync(response);
+
+            await _context.SaveChangesAsync();
         }
 
-
-
-        public Task<IEnumerable<CategoryResponse>> GetCategories()
+        public async Task UpdateCategory(Guid uid, CategoryRequest request)
         {
-            throw new NotImplementedException();
+            var response = await GetCategories();
+
+            var categoryId = response.FirstOrDefault(a => a.Uid == uid);
+
+            var mapUpdate = _map.UpdateCategory(categoryId.Id, request);
+
+            _context.Update(mapUpdate);
+
+            await _context.SaveChangesAsync();
+
         }
 
-        public Task<CategoryResponse> GetCategory()
+        public async Task<IEnumerable<CategoryResponse>> GetCategories()
         {
-            throw new NotImplementedException();
+            var response = await _context.Categories.AsNoTracking().ToListAsync();
+
+            var mapCategories = _map.GetAllCategories(response);
+
+            return mapCategories;
+        }
+
+        public async Task<CategoryResponse> GetCategory(Guid uid)
+        {
+            var response = await GetCategories();
+
+            return response.FirstOrDefault(a => a.Uid == uid);
         }
 
         //JoinMembers

@@ -24,11 +24,14 @@ namespace MountHebronAppApi.Services
         Task DeleteBlog(Guid uid);
 
         //Categories
-        Task<CategoryRequest> AddNewCategory(CategoryRequest request);
+        Task AddNewCategory(CategoryRequest request);
+
+        Task UpdateCategory(Guid uid, CategoryRequest request);
 
         Task<IEnumerable<CategoryResponse>> GetCategories();
 
-        Task<CategoryResponse> GetCategory();
+        Task<CategoryResponse> GetCategory(Guid uid);
+
 
         //Users
         Task<MemberRequest> NewMembers(MemberRequest model);

@@ -144,6 +144,7 @@ namespace MountHebronAppApi.Mapper
             return new ApartmentResponse()
             {
                 Uid = GuidConversion.GuidFromString(Encrytion.EncryptId(model.Id.ToString())),
+                Id = model.Id,
                 CategoryId = category.Id,
                 CategoryName = category.CategoryName,
                 Address = model.Address,
@@ -179,9 +180,40 @@ namespace MountHebronAppApi.Mapper
             throw new NotImplementedException();
         }
 
+        //Category
         public Category NewCategory(CategoryRequest request)
         {
-            throw new NotImplementedException();
+            return new Category()
+            {
+                Type = request.CategoryType,
+                CategoryName = request.CategoryName
+            };
+        }
+
+        public Category UpdateCategory(int id, CategoryRequest request)
+        {
+            return new Category()
+            {
+                Id = id,
+                CategoryName = request.CategoryName,
+                Type = request.CategoryType,
+            };
+        }
+
+        public IEnumerable<CategoryResponse> GetAllCategories(IEnumerable<Category> model)
+        {
+            return model.Select(GetCategory);
+        }
+
+        public CategoryResponse GetCategory(Category category)
+        {
+            return new CategoryResponse()
+            {
+                Uid = GuidConversion.GuidFromString(Encrytion.EncryptId(category.Id.ToString())),
+                Id = category.Id,
+                Type = category.Type,
+                Name = category.CategoryName,
+            };
         }
 
         //Create Request to Join membership
